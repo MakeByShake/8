@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>С 8 Марта — для нашей группы</title>
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream:  #fdf8f3;
+      --blush:  #f5c5cb;
+      --rose:   #e8919a;
+      --deep:   #b5535e;
+      --peach:  #f7d5b5;
+      --sage:   #b5c9b0;
+      --lilac:  #cdb4db;
+      --gold:   #d4a76a;
+      --text:   #3d2b2e;
+      --muted:  #7a5c63;
+      --white:  #fff;
+    }
+    html, body {
+      height: 100%; width: 100%;
+      font-family: 'Georgia', serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* ─── SCREENS ─── */
+    .screen {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .6s ease;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .screen.active { opacity: 1; pointer-events: all; z-index: 2; }
+
+    /* ─── BACKGROUND PETALS ─── */
+    .bg-petals {
+      position: fixed; inset: 0; pointer-events: none;
+      overflow: hidden; z-index: 0;
+    }
+    .bg-petal {
+      position: absolute;
+      width: 12px; height: 16px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      opacity: 0;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-40px) rotate(0deg); opacity: .5; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ─── SCREEN 1: WELCOME ─── */
+    #s1 { background: linear-gradient(160deg, #fff5f7 0%, #fdf0e8 60%, #f0eaf8 100%); }
+    .s1-ornament {
+      font-size: 3rem; margin-bottom: 8px;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    .s1-date {
+      font-size: .75rem; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 28px;
+    }
+    .s1-title {
+      font-size: 1.55rem; line-height: 1.4;
+      color: var(--deep); text-align: center; margin-bottom: 16px;
+      font-style: italic;
+    }
+    .s1-sub {
+      font-size: .9rem; line-height: 1.7; color: var(--muted);
+      text-align: center; max-width: 300px; margin-bottom: 40px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border: none; border-radius: 50px; cursor: pointer;
+      font-family: 'Georgia', serif;
+      font-size: 1rem; letter-spacing: .03em;
+      background: linear-gradient(135deg, var(--rose), var(--deep));
+      color: #fff; box-shadow: 0 4px 20px rgba(181,83,94,.3);
+      transition: transform .2s, box-shadow .2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active { transform: scale(.96); box-shadow: 0 2px 10px rgba(181,83,94,.2); }
+    .s1-footer {
+      position: absolute; bottom: 20px;
+      font-size: .65rem; color: #c9a8ad; letter-spacing: .1em;
+    }
+
+    /* ─── SCREEN 2: BOUQUET ─── */
+    #s2 { background: linear-gradient(170deg, #fff9fb 0%, #f8f3ff 100%); justify-content: flex-start; padding-top: 0; }
+
+    .bouquet-header {
+      width: 100%; text-align: center;
+      padding: 20px 20px 0;
+    }
+    .bouquet-header h2 {
+      font-size: 1.1rem; color: var(--deep); font-style: italic;
+    }
+    .progress-bar {
+      width: 140px; height: 4px; background: #e8d5d8;
+      border-radius: 2px; margin: 10px auto 0;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--blush), var(--rose));
+      border-radius: 2px;
+      transition: width .5s ease;
+    }
+
+    /* ─── FLOWER GARDEN ─── */
+    .garden {
+      flex: 1; width: 100%; position: relative;
+      max-height: 55vh; overflow: hidden;
+    }
+
+    /* ─── WISH CARD ─── */
+    .wish-area {
+      width: 100%; padding: 0 20px;
+    }
+    .wish-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px 22px;
+      box-shadow: 0 4px 24px rgba(181,83,94,.1);
+      min-height: 80px;
+      position: relative;
+      margin-bottom: 16px;
+      border-left: 3px solid var(--rose);
+    }
+    .wish-tag {
+      font-size: .6rem; text-transform: uppercase; letter-spacing: .15em;
+      color: var(--rose); margin-bottom: 6px;
+    }
+    .wish-text {
+      font-size: .92rem; line-height: 1.6; color: var(--text);
+      font-style: italic;
+      opacity: 0;
+      transition: opacity .4s ease .1s;
+    }
+    .wish-text.show { opacity: 1; }
+    .wish-placeholder {
+      font-size: .88rem; color: #cbb5b8; font-style: italic; text-align: center;
+    }
+
+    .btn-next {
+      width: calc(100% - 40px); margin: 0 20px;
+    }
+    .btn-finish {
+      background: linear-gradient(135deg, var(--sage), #7aab6e);
+      box-shadow: 0 4px 20px rgba(120,170,110,.3);
+    }
+
+    /* ─── FLOWERS SVG ─── */
+    .flower {
+      position: absolute;
+      cursor: pointer;
+      transform-origin: bottom center;
+      animation: bloom .6s cubic-bezier(.34,1.56,.64,1) forwards;
+    }
+    @keyframes bloom {
+      0%   { transform: scale(0) translateY(20px); opacity: 0; }
+      100% { transform: scale(1) translateY(0);   opacity: 1; }
+    }
+
+    /* ─── SCREEN 3: FINAL BOUQUET ─── */
+    #s3 {
+      background: linear-gradient(160deg, #fff5f7 0%, #f5f0ff 100%);
+      text-align: center;
+    }
+    .s3-bouquet-wrap {
+      position: relative; width: 220px; height: 220px; margin: 0 auto 20px;
+    }
+    .s3-glow {
+      position: absolute; inset: 0; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,197,203,.5) 0%, transparent 70%);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{transform:scale(1)}; 50%{transform:scale(1.08)} }
+    .s3-emoji { font-size: 3.5rem; margin-bottom: 12px; }
+    .s3-title {
+      font-size: 1.3rem; color: var(--deep); font-style: italic;
+      line-height: 1.5; margin-bottom: 12px;
+    }
+    .s3-text {
+      font-size: .88rem; line-height: 1.7; color: var(--muted);
+      max-width: 300px; margin: 0 auto 28px;
+    }
+
+    /* ─── SCREEN 4: SURPRISE ─── */
+    #s4 {
+      background: linear-gradient(160deg, #3d2b2e 0%, #5c3840 100%);
+      text-align: center;
+    }
+    .stars { font-size: 1.2rem; letter-spacing: 6px; margin-bottom: 20px; opacity: .6; }
+    .s4-ornament { font-size: 2.5rem; margin-bottom: 16px; }
+    .s4-quote {
+      font-size: 1.1rem; font-style: italic; line-height: 1.7;
+      color: #f9e8d0; max-width: 300px; margin: 0 auto 24px;
+    }
+    .s4-quote span { color: var(--blush); }
+    .s4-from {
+      font-size: .75rem; letter-spacing: .2em; color: #b5899a;
+      text-transform: uppercase; margin-bottom: 36px;
+    }
+    .btn-restart {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.3);
+      color: #f9e8d0;
+      box-shadow: none;
+      font-size: .85rem; padding: 12px 28px;
+    }
+
+    /* ─── CONFETTI ─── */
+    .confetti-piece {
+      position: fixed; top: -10px; pointer-events: none;
+      border-radius: 2px;
+      animation: confettiFall linear forwards;
+      z-index: 9999;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ─── RESPONSIVE TWEAKS ─── */
+    @media (max-height: 650px) {
+      .s1-title { font-size: 1.3rem; }
+      .garden { max-height: 44vh; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background falling petals -->
+<div class="bg-petals" id="bgPetals"></div>
+
+<!-- ══════════ SCREEN 1 ══════════ -->
+<div class="screen active" id="s1">
+  <div class="s1-ornament">🌸</div>
+  <p class="s1-date">8 марта 2026</p>
+  <h1 class="s1-title">Этот букет —<br>для вас, девушки</h1>
+  <p class="s1-sub">
+    Для самых умных, добрых и прекрасных сокурсниц нашей группы.
+    Каждый цветок — это слова, которые давно хотелось сказать.
+  </p>
+  <button class="btn" onclick="startBouquet()">Открыть букет</button>
+  <p class="s1-footer">С теплом от вашей группы ✦</p>
+</div>
+
+<!-- ══════════ SCREEN 2 ══════════ -->
+<div class="screen" id="s2">
+  <div class="bouquet-header">
+    <h2>Собери свой букет</h2>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- flower stage -->
+  <div class="garden" id="garden"></div>
+
+  <!-- wish card -->
+  <div class="wish-area">
+    <div class="wish-card" id="wishCard">
+      <div class="wish-placeholder" id="wishPlaceholder">Нажми кнопку, чтобы добавить цветок ✿</div>
+      <div class="wish-tag" id="wishTag" style="display:none"></div>
+      <div class="wish-text" id="wishText"></div>
+    </div>
+    <button class="btn btn-next" id="btnNext" onclick="addFlower()">+ Ещё один цветок</button>
+  </div>
+</div>
+
+<!-- ══════════ SCREEN 3 ══════════ -->
+<div class="screen" id="s3">
+  <div class="s3-bouquet-wrap">
+    <div class="s3-glow"></div>
+    <div style="font-size:9rem;line-height:1;position:relative">💐</div>
+  </div>
+  <h2 class="s3-title">Букет собран.<br>С 8 марта!</h2>
+  <p class="s3-text">
+    Пусть каждая из вас будет как весна — светлая, сильная,
+    вдохновляющая и незабываемая. Вы украшаете нашу группу
+    каждый день, а не только в праздник.
+  </p>
+  <button class="btn" onclick="goSurprise()">Финальный сюрприз ✨</button>
+</div>
+
+<!-- ══════════ SCREEN 4 ══════════ -->
+<div class="screen" id="s4">
+  <div class="stars">✦ ✦ ✦</div>
+  <div class="s4-ornament">🌟</div>
+  <p class="s4-quote">
+    История помнит имена тех,<br>
+    кто был <span>смелым, мудрым и добрым</span>.<br><br>
+    Вы учите историю — но вы сами уже пишете её
+    каждый день своей учёбой, упорством и красотой.
+  </p>
+  <p class="s4-from">С уважением и теплом — ваша группа</p>
+  <button class="btn btn-restart" onclick="restart()">Начать снова</button>
+</div>
+
+<script>
+/* ──────────────────────────────────────
+   WISHES DATA
+   ────────────────────────────────────── */
+const wishTypes = {
+  нежное:    { color: '#f5c5cb', accent: '#e8919a', emoji: '🌷' },
+  умное:     { color: '#cdb4db', accent: '#9a6bbf', emoji: '📖' },
+  историческое: { color: '#d4a76a', accent: '#a0724a', emoji: '🏺' },
+  весеннее:  { color: '#b5c9b0', accent: '#5a8a52', emoji: '🌿' },
+};
+
+const wishes = [
+  // нежные
+  { type:'нежное', text:'Желаю тебе тепла, которое чувствуется даже без слов.' },
+  { type:'нежное', text:'Пусть твоя улыбка будет символом хорошего дня.' },
+  { type:'нежное', text:'Желаю тебе не просто счастья, а красивого и спокойного счастья.' },
+  { type:'нежное', text:'Пусть твоя нежность никогда не мешает твоей силе.' },
+  { type:'нежное', text:'Желаю тебе быть особенной не для кого-то, а прежде всего для самой себя.' },
+  { type:'нежное', text:'Пусть каждый цветок этого букета напоминает, какая ты замечательная.' },
+  { type:'нежное', text:'Желаю тебе внутреннего спокойствия и внешнего блеска.' },
+  { type:'нежное', text:'Пусть твоя доброта возвращается к тебе вдвойне.' },
+  { type:'нежное', text:'Желаю тебе много добрых слов и ни одного лишнего переживания.' },
+  { type:'нежное', text:'Пусть твой день начинается со спокойствия, а заканчивается улыбкой.' },
+  { type:'нежное', text:'Желаю тебе радости, которая не требует повода.' },
+  { type:'нежное', text:'Пусть твоя красота всегда идёт рядом с умом и уверенностью.' },
+  { type:'нежное', text:'Желаю тебе ощущать свою ценность каждый день.' },
+  { type:'нежное', text:'Пусть ты всегда чувствуешь, что ты важна и ценна.' },
+  { type:'нежное', text:'Желаю тебе тепла, поддержки и красивых моментов каждый день.' },
+
+  // умные
+  { type:'умное', text:'Пусть знания открывают перед тобой новые горизонты — один за другим.' },
+  { type:'умное', text:'Желаю тебе уверенности, которая не зависит от чужого мнения.' },
+  { type:'умное', text:'Пусть твой ум восхищает так же, как твоя улыбка радует.' },
+  { type:'умное', text:'Желаю тебе быть человеком, которым ты сама гордишься.' },
+  { type:'умное', text:'Пусть каждый день напоминает тебе, что ты способна на многое.' },
+  { type:'умное', text:'Желаю тебе легкости в учёбе, уверенности в себе и красоты в каждом дне.' },
+  { type:'умное', text:'Пусть твой ум всегда находит правильный путь.' },
+  { type:'умное', text:'Желаю тебе быть красивой, умной и уверенной — одновременно, а не по очереди.' },
+  { type:'умное', text:'Пусть все экзамены, тесты и испытания проходят в твою пользу.' },
+  { type:'умное', text:'Желаю тебе ясных мыслей и спокойной головы на ЕНТ — ты готова.' },
+  { type:'умное', text:'Пусть каждый день добавляет тебе веры в себя.' },
+  { type:'умное', text:'Желаю тебе смелости мечтать по-крупному.' },
+  { type:'умное', text:'Пусть учёба приносит не только нагрузку, но и гордость за себя.' },
+  { type:'умное', text:'Желаю тебе в учёбе ясности, в жизни тепла, а в сердце покоя.' },
+  { type:'умное', text:'Пусть твоя энергия была как у человека, который знает ответы на все тесты заранее.' },
+
+  // исторические
+  { type:'историческое', text:'Пусть эта весна принесёт тебе столько радости, сколько тайн хранит история великой степи.' },
+  { type:'историческое', text:'Желаю тебе сиять так ярко, как сияют имена великих личностей в истории Казахстана.' },
+  { type:'историческое', text:'Пусть история Казахстана вдохновляет тебя на собственные сильные главы жизни.' },
+  { type:'историческое', text:'Желаю тебе быть как редкая находка в истории — удивительной и запоминающейся.' },
+  { type:'историческое', text:'Пусть твой путь будет таким же достойным, как путь сильных женщин в истории.' },
+  { type:'историческое', text:'Желаю тебе столько уверенности, сколько в истории Казахстана великих побед.' },
+  { type:'историческое', text:'Пусть твоя энергия будет сильной, как дух казахской степи.' },
+  { type:'историческое', text:'Желаю тебе быть такой же незабываемой, как важные даты в истории.' },
+  { type:'историческое', text:'Пусть твоя мудрость растёт так же красиво, как цветёт казахская весна.' },
+  { type:'историческое', text:'Желаю тебе вдохновения, достойного великих эпох.' },
+  { type:'историческое', text:'Пусть твой путь будет освещён знаниями, как степь утренним солнцем.' },
+  { type:'историческое', text:'Желаю тебе быть как любимая страница истории — интересной, сильной и запоминающейся.' },
+  { type:'историческое', text:'Пусть дух народа, хранящий память поколений, вдохновляет тебя каждый день.' },
+  { type:'историческое', text:'Желаю тебе быть яркой, как рассвет над степью, и глубокой, как история народа.' },
+  { type:'историческое', text:'Пусть знания ведут тебя вперёд, как мудрость предков вела к свету.' },
+
+  // весенние
+  { type:'весеннее', text:'Пусть у тебя будет весна не только за окном, но и внутри.' },
+  { type:'весеннее', text:'Желаю тебе быть как весна: красивой, живой и полной энергии.' },
+  { type:'весеннее', text:'Пусть весна подарит тебе много светлых встреч и приятных сюрпризов.' },
+  { type:'весеннее', text:'Желаю тебе мягкой весны и сильного характера.' },
+  { type:'весеннее', text:'Пусть твоя душа цветёт так же красиво, как весенние сады.' },
+  { type:'весеннее', text:'Желаю тебе весны, которая запомнится только хорошим.' },
+  { type:'весеннее', text:'Пусть твоё настроение расцветает вместе с весной.' },
+  { type:'весеннее', text:'Желаю тебе быть как весенний ветер — лёгкой, свободной и живой.' },
+  { type:'весеннее', text:'Пусть эта весна станет для тебя временем хороших перемен.' },
+  { type:'весеннее', text:'Желаю тебе вдохновения даже в понедельник утром — первый признак весны.' },
+  { type:'весеннее', text:'Пусть эта весна напомнит тебе, насколько ты прекрасна.' },
+  { type:'весеннее', text:'Желаю тебе столько радости, сколько звёзд над ночной степью весной.' },
+  { type:'весеннее', text:'Пусть твоя красота никогда не меркнет — как цветущий март.' },
+  { type:'весеннее', text:'Желаю тебе весны, полной вдохновения, уважения и счастья.' },
+  { type:'весеннее', text:'Пусть твой день будет красивым, как открытка, но настоящим, как искренние слова.' },
+];
+
+/* ──────────────────────────────────────
+   FLOWER SHAPES (SVG paths)
+   ────────────────────────────────────── */
+const flowerShapes = [
+  // tulip style
+  (c,s) => `<svg width="${s}" height="${s}" viewBox="0 0 60 80" fill="none">
+    <line x1="30" y1="80" x2="30" y2="38" stroke="#5a8a52" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M30 38 Q20 28 22 16 Q28 6 30 4 Q32 6 38 16 Q40 28 30 38Z" fill="${c}"/>
+    <path d="M30 38 Q18 32 14 20 Q14 10 20 8 Q24 12 30 38Z" fill="${c}" opacity=".75"/>
+    <path d="M30 38 Q42 32 46 20 Q46 10 40 8 Q36 12 30 38Z" fill="${c}" opacity=".75"/>
+    <ellipse cx="23" cy="26" rx="3" ry="5" fill="white" opacity=".2" transform="rotate(-20 23 26)"/>
+  </svg>`,
+
+  // round bloom
+  (c,s) => `<svg width="${s}" height="${s}" viewBox="0 0 60 80" fill="none">
+    <line x1="30" y1="80" x2="30" y2="42" stroke="#5a8a52" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="30" cy="30" r="18" fill="${c}"/>
+    ${[0,60,120,180,240,300].map(a=>`<ellipse cx="${30+16*Math.cos(a*Math.PI/180)}" cy="${30+16*Math.sin(a*Math.PI/180)}" rx="9" ry="6" fill="${c}" transform="rotate(${a} ${30+16*Math.cos(a*Math.PI/180)} ${30+16*Math.sin(a*Math.PI/180)})"/>`).join('')}
+    <circle cx="30" cy="30" r="8" fill="#f9e4b7"/>
+    <circle cx="28" cy="28" r="2" fill="white" opacity=".4"/>
+  </svg>`,
+
+  // daisy
+  (c,s) => `<svg width="${s}" height="${s}" viewBox="0 0 60 80" fill="none">
+    <line x1="30" y1="80" x2="30" y2="42" stroke="#5a8a52" stroke-width="2.5" stroke-linecap="round"/>
+    ${[0,45,90,135,180,225,270,315].map(a=>`<ellipse cx="${30+14*Math.cos(a*Math.PI/180)}" cy="${30+14*Math.sin(a*Math.PI/180)}" rx="8" ry="4" fill="${c}" transform="rotate(${a} ${30+14*Math.cos(a*Math.PI/180)} ${30+14*Math.sin(a*Math.PI/180)})" opacity=".9"/>`).join('')}
+    <circle cx="30" cy="30" r="10" fill="#f7d5b5"/>
+    <circle cx="27" cy="27" r="3" fill="white" opacity=".35"/>
+  </svg>`,
+
+  // peony-ish
+  (c,s) => `<svg width="${s}" height="${s}" viewBox="0 0 60 80" fill="none">
+    <line x1="30" y1="80" x2="30" y2="46" stroke="#5a8a52" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="30" cy="30" r="20" fill="${c}" opacity=".6"/>
+    <circle cx="30" cy="30" r="15" fill="${c}" opacity=".8"/>
+    <circle cx="30" cy="30" r="10" fill="${c}"/>
+    ${[0,72,144,216,288].map(a=>`<ellipse cx="${30+17*Math.cos(a*Math.PI/180)}" cy="${30+17*Math.sin(a*Math.PI/180)}" rx="10" ry="7" fill="${c}" transform="rotate(${a} ${30+17*Math.cos(a*Math.PI/180)} ${30+17*Math.sin(a*Math.PI/180)})" opacity=".7"/>`).join('')}
+    <circle cx="30" cy="30" r="6" fill="#f9e4b7"/>
+  </svg>`,
+];
+
+/* ──────────────────────────────────────
+   POSITIONS for flowers in garden
+   ────────────────────────────────────── */
+const positions = [
+  { left:'42%', bottom:'0%',  size:72 },
+  { left:'20%', bottom:'5%',  size:60 },
+  { left:'63%', bottom:'5%',  size:65 },
+  { left:'10%', bottom:'15%', size:52 },
+  { left:'72%', bottom:'12%', size:58 },
+  { left:'32%', bottom:'2%',  size:68 },
+  { left:'55%', bottom:'18%', size:50 },
+  { left:'5%',  bottom:'25%', size:46 },
+  { left:'80%', bottom:'22%', size:48 },
+  { left:'48%', bottom:'20%', size:54 },
+];
+
+/* ──────────────────────────────────────
+   FLOWER COLORS per wish type
+   ────────────────────────────────────── */
+const typeColors = {
+  нежное:       ['#f5c5cb','#f09ca8','#e8c4da','#f7d5e5'],
+  умное:        ['#cdb4db','#b89fd4','#9a6bbf','#d5c4e8'],
+  историческое: ['#d4a76a','#e8c49a','#c4904a','#dbb87a'],
+  весеннее:     ['#b5c9b0','#8ab884','#c9dbc5','#6aaa60'],
+};
+
+/* ──────────────────────────────────────
+   STATE
+   ────────────────────────────────────── */
+const TOTAL = 8;
+let count = 0;
+let usedWishes = new Set();
+let shuffledWishes = [];
+
+function shuffleArray(a) {
+  const b = [...a];
+  for (let i = b.length-1; i>0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [b[i],b[j]] = [b[j],b[i]];
+  }
+  return b;
+}
+
+/* ──────────────────────────────────────
+   BACKGROUND PETALS
+   ────────────────────────────────────── */
+function initBgPetals() {
+  const wrap = document.getElementById('bgPetals');
+  const colors = ['#f5c5cb','#cdb4db','#b5c9b0','#f7d5b5','#e8d5f5'];
+  for (let i=0; i<18; i++) {
+    const p = document.createElement('div');
+    p.className = 'bg-petal';
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      background:${colors[i%colors.length]};
+      width:${8+Math.random()*10}px;
+      height:${12+Math.random()*14}px;
+      animation-duration:${6+Math.random()*8}s;
+      animation-delay:${Math.random()*8}s;
+    `;
+    wrap.appendChild(p);
+  }
+}
+
+/* ──────────────────────────────────────
+   NAVIGATION
+   ────────────────────────────────────── */
+function goScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startBouquet() {
+  count = 0;
+  usedWishes.clear();
+  shuffledWishes = shuffleArray(wishes);
+  document.getElementById('garden').innerHTML = '';
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('wishPlaceholder').style.display = 'block';
+  document.getElementById('wishTag').style.display = 'none';
+  document.getElementById('wishText').classList.remove('show');
+  document.getElementById('wishText').textContent = '';
+  document.getElementById('btnNext').textContent = '+ Добавить первый цветок';
+  document.getElementById('btnNext').className = 'btn btn-next';
+  goScreen('s2');
+}
+
+function goSurprise() {
+  launchConfetti();
+  goScreen('s3');
+  setTimeout(() => {}, 100);
+}
+
+function restart() { goScreen('s1'); }
+
+/* ──────────────────────────────────────
+   ADD FLOWER
+   ────────────────────────────────────── */
+function getNextWish() {
+  if (shuffledWishes.length === 0) shuffledWishes = shuffleArray(wishes);
+  const w = shuffledWishes.pop();
+  return w;
+}
+
+function addFlower() {
+  if (count >= TOTAL) return;
+
+  const wish = getNextWish();
+  const pos  = positions[count];
+  const typeColor = typeColors[wish.type];
+  const color = typeColor[Math.floor(Math.random()*typeColor.length)];
+  const shapeIdx = count % flowerShapes.length;
+  const svgFn = flowerShapes[shapeIdx];
+
+  // Create flower element
+  const garden = document.getElementById('garden');
+  const div = document.createElement('div');
+  div.className = 'flower';
+  div.style.cssText = `
+    left:${pos.left}; bottom:${pos.bottom};
+    width:${pos.size}px; height:${pos.size * 1.35}px;
+  `;
+  div.innerHTML = svgFn(color, pos.size);
+  div.setAttribute('data-idx', count);
+  div.onclick = () => showWishForFlower(div._wish);
+  div._wish = wish;
+  garden.appendChild(div);
+
+  // Show wish in card
+  showWishInCard(wish);
+
+  count++;
+  document.getElementById('progressFill').style.width = `${(count/TOTAL)*100}%`;
+
+  if (count >= TOTAL) {
+    setTimeout(() => {
+      document.getElementById('btnNext').textContent = 'Посмотреть букет целиком 🌸';
+      document.getElementById('btnNext').className = 'btn btn-next btn-finish';
+      document.getElementById('btnNext').onclick = goSurprise;
+    }, 400);
+  } else {
+    document.getElementById('btnNext').textContent = `+ Ещё один цветок (${count}/${TOTAL})`;
+  }
+}
+
+function showWishInCard(wish) {
+  const tag  = document.getElementById('wishTag');
+  const text = document.getElementById('wishText');
+  const placeholder = document.getElementById('wishPlaceholder');
+
+  placeholder.style.display = 'none';
+  tag.style.display = 'block';
+
+  const typeInfo = wishTypes[wish.type];
+  tag.textContent = typeInfo.emoji + ' ' + wish.type.charAt(0).toUpperCase() + wish.type.slice(1);
+  tag.style.color = typeInfo.accent;
+
+  text.classList.remove('show');
+  setTimeout(() => {
+    text.textContent = wish.text;
+    text.classList.add('show');
+  }, 80);
+
+  // Accent border color
+  document.getElementById('wishCard').style.borderLeftColor = typeInfo.accent;
+}
+
+function showWishForFlower(wish) {
+  showWishInCard(wish);
+}
+
+/* ──────────────────────────────────────
+   CONFETTI
+   ────────────────────────────────────── */
+function launchConfetti() {
+  const colors = ['#f5c5cb','#cdb4db','#b5c9b0','#f7d5b5','#e8919a','#d4a76a'];
+  for (let i=0; i<60; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    const size = 6 + Math.random()*8;
+    c.style.cssText = `
+      left:${Math.random()*100}vw;
+      width:${size}px; height:${size * (Math.random()*2+.5)}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${1.5+Math.random()*2}s;
+      animation-delay:${Math.random()*.8}s;
+      border-radius:${Math.random()<.5 ? '50%' : '2px'};
+    `;
+    document.body.appendChild(c);
+    c.addEventListener('animationend', () => c.remove());
+  }
+}
+
+/* ──────────────────────────────────────
+   INIT
+   ────────────────────────────────────── */
+initBgPetals();
+</script>
+</body>
+</html>
