@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="kk">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>С 8 Марта — для нашей группы</title>
+  <title>8 Наурыз — біздің топ қыздарына</title>
   <style>
-    /* ─── RESET & BASE ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --cream:  #fdf8f3;
@@ -28,7 +27,6 @@
       overflow: hidden;
     }
 
-    /* ─── SCREENS ─── */
     .screen {
       position: fixed; inset: 0;
       display: flex; flex-direction: column;
@@ -41,7 +39,6 @@
     }
     .screen.active { opacity: 1; pointer-events: all; z-index: 2; }
 
-    /* ─── BACKGROUND PETALS ─── */
     .bg-petals {
       position: fixed; inset: 0; pointer-events: none;
       overflow: hidden; z-index: 0;
@@ -58,7 +55,7 @@
       100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* ─── SCREEN 1: WELCOME ─── */
+    /* ─── SCREEN 1 ─── */
     #s1 { background: linear-gradient(160deg, #fff5f7 0%, #fdf0e8 60%, #f0eaf8 100%); }
     .s1-ornament {
       font-size: 3rem; margin-bottom: 8px;
@@ -98,7 +95,7 @@
       font-size: .65rem; color: #c9a8ad; letter-spacing: .1em;
     }
 
-    /* ─── SCREEN 2: BOUQUET ─── */
+    /* ─── SCREEN 2 ─── */
     #s2 { background: linear-gradient(170deg, #fff9fb 0%, #f8f3ff 100%); justify-content: flex-start; padding-top: 0; }
 
     .bouquet-header {
@@ -120,13 +117,11 @@
       transition: width .5s ease;
     }
 
-    /* ─── FLOWER GARDEN ─── */
     .garden {
       flex: 1; width: 100%; position: relative;
       max-height: 55vh; overflow: hidden;
     }
 
-    /* ─── WISH CARD ─── */
     .wish-area {
       width: 100%; padding: 0 20px;
     }
@@ -163,7 +158,6 @@
       box-shadow: 0 4px 20px rgba(120,170,110,.3);
     }
 
-    /* ─── FLOWERS SVG ─── */
     .flower {
       position: absolute;
       cursor: pointer;
@@ -175,7 +169,7 @@
       100% { transform: scale(1) translateY(0);   opacity: 1; }
     }
 
-    /* ─── SCREEN 3: FINAL BOUQUET ─── */
+    /* ─── SCREEN 3 ─── */
     #s3 {
       background: linear-gradient(160deg, #fff5f7 0%, #f5f0ff 100%);
       text-align: center;
@@ -188,8 +182,7 @@
       background: radial-gradient(circle, rgba(245,197,203,.5) 0%, transparent 70%);
       animation: pulse 3s ease-in-out infinite;
     }
-    @keyframes pulse { 0%,100%{transform:scale(1)}; 50%{transform:scale(1.08)} }
-    .s3-emoji { font-size: 3.5rem; margin-bottom: 12px; }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
     .s3-title {
       font-size: 1.3rem; color: var(--deep); font-style: italic;
       line-height: 1.5; margin-bottom: 12px;
@@ -199,7 +192,7 @@
       max-width: 300px; margin: 0 auto 28px;
     }
 
-    /* ─── SCREEN 4: SURPRISE ─── */
+    /* ─── SCREEN 4 ─── */
     #s4 {
       background: linear-gradient(160deg, #3d2b2e 0%, #5c3840 100%);
       text-align: center;
@@ -223,7 +216,6 @@
       font-size: .85rem; padding: 12px 28px;
     }
 
-    /* ─── CONFETTI ─── */
     .confetti-piece {
       position: fixed; top: -10px; pointer-events: none;
       border-radius: 2px;
@@ -235,7 +227,6 @@
       100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
     }
 
-    /* ─── RESPONSIVE TWEAKS ─── */
     @media (max-height: 650px) {
       .s1-title { font-size: 1.3rem; }
       .garden { max-height: 44vh; }
@@ -244,158 +235,149 @@
 </head>
 <body>
 
-<!-- Background falling petals -->
 <div class="bg-petals" id="bgPetals"></div>
 
-<!-- ══════════ SCREEN 1 ══════════ -->
+<!-- ══════════ ЭКРАН 1 ══════════ -->
 <div class="screen active" id="s1">
   <div class="s1-ornament">🌸</div>
-  <p class="s1-date">8 марта 2026</p>
-  <h1 class="s1-title">Этот букет —<br>для вас, девушки</h1>
+  <p class="s1-date">8 Наурыз 2026</p>
+  <h1 class="s1-title">Бұл гүл шоғы —<br>сіздерге, қыздар</h1>
   <p class="s1-sub">
-    Для самых умных, добрых и прекрасных сокурсниц нашей группы.
-    Каждый цветок — это слова, которые давно хотелось сказать.
+    Біздің топтың ең ақылды, мейірімді және сұлу сокурсниктеріне арналған.
+    Әр гүлде — ертеден айтқысы келген сөздер бар.
   </p>
-  <button class="btn" onclick="startBouquet()">Открыть букет</button>
-  <p class="s1-footer">С теплом от вашей группы ✦</p>
+  <button class="btn" onclick="startBouquet()">Гүл шоғын ашу</button>
+  <p class="s1-footer">Ізгі тілекпен, топтастарыңнан ✦</p>
 </div>
 
-<!-- ══════════ SCREEN 2 ══════════ -->
+<!-- ══════════ ЭКРАН 2 ══════════ -->
 <div class="screen" id="s2">
   <div class="bouquet-header">
-    <h2>Собери свой букет</h2>
+    <h2>Гүл шоғыңды жина</h2>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   </div>
 
-  <!-- flower stage -->
   <div class="garden" id="garden"></div>
 
-  <!-- wish card -->
   <div class="wish-area">
     <div class="wish-card" id="wishCard">
-      <div class="wish-placeholder" id="wishPlaceholder">Нажми кнопку, чтобы добавить цветок ✿</div>
+      <div class="wish-placeholder" id="wishPlaceholder">Гүл қосу үшін батырманы бас ✿</div>
       <div class="wish-tag" id="wishTag" style="display:none"></div>
       <div class="wish-text" id="wishText"></div>
     </div>
-    <button class="btn btn-next" id="btnNext" onclick="addFlower()">+ Ещё один цветок</button>
+    <button class="btn btn-next" id="btnNext" onclick="addFlower()">+ Тағы бір гүл</button>
   </div>
 </div>
 
-<!-- ══════════ SCREEN 3 ══════════ -->
+<!-- ══════════ ЭКРАН 3 ══════════ -->
 <div class="screen" id="s3">
   <div class="s3-bouquet-wrap">
     <div class="s3-glow"></div>
     <div style="font-size:9rem;line-height:1;position:relative">💐</div>
   </div>
-  <h2 class="s3-title">Букет собран.<br>С 8 марта!</h2>
+  <h2 class="s3-title">Гүл шоғы жиналды.<br>8 Наурыз мерекең құтты болсын!</h2>
   <p class="s3-text">
-    Пусть каждая из вас будет как весна — светлая, сильная,
-    вдохновляющая и незабываемая. Вы украшаете нашу группу
-    каждый день, а не только в праздник.
+    Сіздердің әрқайсысы көктем секілді болсын — жарқын, мықты,
+    шабыт беретін және ұмытылмас. Сіздер біздің топты күн сайын
+    безендіріп жүрсіздер, тек мерекеде ғана емес.
   </p>
-  <button class="btn" onclick="goSurprise()">Финальный сюрприз ✨</button>
+  <button class="btn" onclick="goSurprise()">Соңғы тосынсый ✨</button>
 </div>
 
-<!-- ══════════ SCREEN 4 ══════════ -->
+<!-- ══════════ ЭКРАН 4 ══════════ -->
 <div class="screen" id="s4">
   <div class="stars">✦ ✦ ✦</div>
   <div class="s4-ornament">🌟</div>
   <p class="s4-quote">
-    История помнит имена тех,<br>
-    кто был <span>смелым, мудрым и добрым</span>.<br><br>
-    Вы учите историю — но вы сами уже пишете её
-    каждый день своей учёбой, упорством и красотой.
+    Тарих <span>батыл, ақылды және мейірімді</span> болғандардың<br>
+    есімін сақтайды.<br><br>
+    Сіздер тарихты оқисыздар — бірақ өз оқуыңызбен,
+    табандылығыңызбен және сұлулығыңызбен өзіңіздің тарихыңызды
+    күн сайын жазып жатырсыздар.
   </p>
-  <p class="s4-from">С уважением и теплом — ваша группа</p>
-  <button class="btn btn-restart" onclick="restart()">Начать снова</button>
+  <p class="s4-from">Құрметпен және жылылықпен — топтастарыңнан</p>
+  <button class="btn btn-restart" onclick="restart()">Қайта бастау</button>
 </div>
 
 <script>
-/* ──────────────────────────────────────
-   WISHES DATA
-   ────────────────────────────────────── */
 const wishTypes = {
-  нежное:    { color: '#f5c5cb', accent: '#e8919a', emoji: '🌷' },
-  умное:     { color: '#cdb4db', accent: '#9a6bbf', emoji: '📖' },
-  историческое: { color: '#d4a76a', accent: '#a0724a', emoji: '🏺' },
-  весеннее:  { color: '#b5c9b0', accent: '#5a8a52', emoji: '🌿' },
+  нәзік:      { color: '#f5c5cb', accent: '#e8919a', emoji: '🌷' },
+  ақылды:     { color: '#cdb4db', accent: '#9a6bbf', emoji: '📖' },
+  тарихи:     { color: '#d4a76a', accent: '#a0724a', emoji: '🏺' },
+  көктемгі:   { color: '#b5c9b0', accent: '#5a8a52', emoji: '🌿' },
 };
 
 const wishes = [
-  // нежные
-  { type:'нежное', text:'Желаю тебе тепла, которое чувствуется даже без слов.' },
-  { type:'нежное', text:'Пусть твоя улыбка будет символом хорошего дня.' },
-  { type:'нежное', text:'Желаю тебе не просто счастья, а красивого и спокойного счастья.' },
-  { type:'нежное', text:'Пусть твоя нежность никогда не мешает твоей силе.' },
-  { type:'нежное', text:'Желаю тебе быть особенной не для кого-то, а прежде всего для самой себя.' },
-  { type:'нежное', text:'Пусть каждый цветок этого букета напоминает, какая ты замечательная.' },
-  { type:'нежное', text:'Желаю тебе внутреннего спокойствия и внешнего блеска.' },
-  { type:'нежное', text:'Пусть твоя доброта возвращается к тебе вдвойне.' },
-  { type:'нежное', text:'Желаю тебе много добрых слов и ни одного лишнего переживания.' },
-  { type:'нежное', text:'Пусть твой день начинается со спокойствия, а заканчивается улыбкой.' },
-  { type:'нежное', text:'Желаю тебе радости, которая не требует повода.' },
-  { type:'нежное', text:'Пусть твоя красота всегда идёт рядом с умом и уверенностью.' },
-  { type:'нежное', text:'Желаю тебе ощущать свою ценность каждый день.' },
-  { type:'нежное', text:'Пусть ты всегда чувствуешь, что ты важна и ценна.' },
-  { type:'нежное', text:'Желаю тебе тепла, поддержки и красивых моментов каждый день.' },
+  // нәзік
+  { type:'нәзік', text:'Саған сөзсіз сезілетін жылулық тілеймін.' },
+  { type:'нәзік', text:'Күлімсіреуің жақсы күннің белгісіне айналсын.' },
+  { type:'нәзік', text:'Саған жай бақыт емес, жүрекке тыныштық беретін сұлу бақыт тілеймін.' },
+  { type:'нәзік', text:'Нәзіктігің ешқашан мықтылығыңа кедергі болмасын.' },
+  { type:'нәзік', text:'Ең алдымен өзің үшін ерекше жан бола біл.' },
+  { type:'нәзік', text:'Бұл гүлдердің әрқайсысы сенің қандай керемет жан екеніңді еске салсын.' },
+  { type:'нәзік', text:'Ішкі тыныштығың мен сыртқы жарқылың үйлесіп тұрсын.' },
+  { type:'нәзік', text:'Жасаған жақсылығың өзіңе еселеп қайтсын.' },
+  { type:'нәзік', text:'Саған көп жылы сөз және бірде-бір артық уайым тілемеймін.' },
+  { type:'нәзік', text:'Күнің тыныштықпен басталып, күлімсіреумен аяқталсын.' },
+  { type:'нәзік', text:'Саған себепсіз келетін қуаныш тілеймін.' },
+  { type:'нәзік', text:'Сұлулығың ақыл-парасатыңмен әрдайым үйлесіп тұрсын.' },
+  { type:'нәзік', text:'Өз құндылығыңды күн сайын сезініп жүр.' },
+  { type:'нәзік', text:'Өзіңнің маңызды жан екеніңді әрдайым сезініп жүр.' },
+  { type:'нәзік', text:'Саған жылулық, қолдау және әдемі сәттер серік болсын.' },
 
-  // умные
-  { type:'умное', text:'Пусть знания открывают перед тобой новые горизонты — один за другим.' },
-  { type:'умное', text:'Желаю тебе уверенности, которая не зависит от чужого мнения.' },
-  { type:'умное', text:'Пусть твой ум восхищает так же, как твоя улыбка радует.' },
-  { type:'умное', text:'Желаю тебе быть человеком, которым ты сама гордишься.' },
-  { type:'умное', text:'Пусть каждый день напоминает тебе, что ты способна на многое.' },
-  { type:'умное', text:'Желаю тебе легкости в учёбе, уверенности в себе и красоты в каждом дне.' },
-  { type:'умное', text:'Пусть твой ум всегда находит правильный путь.' },
-  { type:'умное', text:'Желаю тебе быть красивой, умной и уверенной — одновременно, а не по очереди.' },
-  { type:'умное', text:'Пусть все экзамены, тесты и испытания проходят в твою пользу.' },
-  { type:'умное', text:'Желаю тебе ясных мыслей и спокойной головы на ЕНТ — ты готова.' },
-  { type:'умное', text:'Пусть каждый день добавляет тебе веры в себя.' },
-  { type:'умное', text:'Желаю тебе смелости мечтать по-крупному.' },
-  { type:'умное', text:'Пусть учёба приносит не только нагрузку, но и гордость за себя.' },
-  { type:'умное', text:'Желаю тебе в учёбе ясности, в жизни тепла, а в сердце покоя.' },
-  { type:'умное', text:'Пусть твоя энергия была как у человека, который знает ответы на все тесты заранее.' },
+  // ақылды
+  { type:'ақылды', text:'Білім саған жаңа көкжиектер ашсын — бірінен соң бірін.' },
+  { type:'ақылды', text:'Сенімің ешкімнің пікіріне тәуелді болмасын.' },
+  { type:'ақылды', text:'Ақылың таңғалдырсын, күлкің қуантсын.' },
+  { type:'ақылды', text:'Өзіңе өзің мақтанатындай адам бол.' },
+  { type:'ақылды', text:'Әр күн саған өзіңнің көп нәрсеге қабілетті екеніңді еске салсын.' },
+  { type:'ақылды', text:'Оқуың жеңіл, көңілің көтеріңкі, әр күнің әдемі өтсін.' },
+  { type:'ақылды', text:'Ақылың әрдайым дұрыс бағыт тапсын.' },
+  { type:'ақылды', text:'Әдемі, ақылды, сенімді болу саған бір мезетте де жарасады.' },
+  { type:'ақылды', text:'Барлық сынақтар мен тесттер сенің пайдаңа шешілсін.' },
+  { type:'ақылды', text:'ҰБТ-да ойың анық, жүрегің тыныш болсын — сен дайынсың.' },
+  { type:'ақылды', text:'Әр жаңа күн өзіңе деген сенімді арттырсын.' },
+  { type:'ақылды', text:'Үлкен арман көруден қорықпа.' },
+  { type:'ақылды', text:'Оқу саған тек салмақ емес, мақтаныш та сыйласын.' },
+  { type:'ақылды', text:'Оқуда анықтық, өмірде жылулық, жүректе тыныштық болсын.' },
+  { type:'ақылды', text:'Энергияң барлық тесттің жауабын алдын ала білетін адамдай мықты болсын.' },
 
-  // исторические
-  { type:'историческое', text:'Пусть эта весна принесёт тебе столько радости, сколько тайн хранит история великой степи.' },
-  { type:'историческое', text:'Желаю тебе сиять так ярко, как сияют имена великих личностей в истории Казахстана.' },
-  { type:'историческое', text:'Пусть история Казахстана вдохновляет тебя на собственные сильные главы жизни.' },
-  { type:'историческое', text:'Желаю тебе быть как редкая находка в истории — удивительной и запоминающейся.' },
-  { type:'историческое', text:'Пусть твой путь будет таким же достойным, как путь сильных женщин в истории.' },
-  { type:'историческое', text:'Желаю тебе столько уверенности, сколько в истории Казахстана великих побед.' },
-  { type:'историческое', text:'Пусть твоя энергия будет сильной, как дух казахской степи.' },
-  { type:'историческое', text:'Желаю тебе быть такой же незабываемой, как важные даты в истории.' },
-  { type:'историческое', text:'Пусть твоя мудрость растёт так же красиво, как цветёт казахская весна.' },
-  { type:'историческое', text:'Желаю тебе вдохновения, достойного великих эпох.' },
-  { type:'историческое', text:'Пусть твой путь будет освещён знаниями, как степь утренним солнцем.' },
-  { type:'историческое', text:'Желаю тебе быть как любимая страница истории — интересной, сильной и запоминающейся.' },
-  { type:'историческое', text:'Пусть дух народа, хранящий память поколений, вдохновляет тебя каждый день.' },
-  { type:'историческое', text:'Желаю тебе быть яркой, как рассвет над степью, и глубокой, как история народа.' },
-  { type:'историческое', text:'Пусть знания ведут тебя вперёд, как мудрость предков вела к свету.' },
+  // тарихи
+  { type:'тарихи', text:'Осы көктем саған Ұлы даланың тарихындай терең қуаныш сыйласын.' },
+  { type:'тарихи', text:'Жүзің әрдайым Қазақстан тарихындағы ұлы есімдердей жарқырап тұрсын.' },
+  { type:'тарихи', text:'Қазақстан тарихы саған өз өміріңнің мықты тарауларын жазуға шабыт берсін.' },
+  { type:'тарихи', text:'Тарихтағы сирек кездесетін асыл мұрадай ерекше бол.' },
+  { type:'тарихи', text:'Өмір жолың тарихтағы қайсар жандардың жолындай мәнді болсын.' },
+  { type:'тарихи', text:'Саған тарихтағы ұлы жеңістердей сенім тілеймін.' },
+  { type:'тарихи', text:'Бойыңдағы күш Ұлы даланың рухындай мықты болсын.' },
+  { type:'тарихи', text:'Тарихтағы ұмытылмас даталардай есте қаларлық бол.' },
+  { type:'тарихи', text:'Даналығың Ұлы дала мен ата-бабалар мұрасындай байып тұрсын.' },
+  { type:'тарихи', text:'Саған ұлы дәуірлерге лайық шабыт тілеймін.' },
+  { type:'тарихи', text:'Жолың білім нұрымен, таңғы дала шуағындай жарық болсын.' },
+  { type:'тарихи', text:'Тарихтағы сүйікті беттей қызық, мәнді, есте қаларлық бол.' },
+  { type:'тарихи', text:'Рухың халықтың қайсарлығындай, болмысың көктем гүліндей әсем болсын.' },
+  { type:'тарихи', text:'Таңғы дала шапағындай жарқын бол.' },
+  { type:'тарихи', text:'Білім сені алға бастасын, жүрегің дұрыс бағыт таңдасын.' },
 
-  // весенние
-  { type:'весеннее', text:'Пусть у тебя будет весна не только за окном, но и внутри.' },
-  { type:'весеннее', text:'Желаю тебе быть как весна: красивой, живой и полной энергии.' },
-  { type:'весеннее', text:'Пусть весна подарит тебе много светлых встреч и приятных сюрпризов.' },
-  { type:'весеннее', text:'Желаю тебе мягкой весны и сильного характера.' },
-  { type:'весеннее', text:'Пусть твоя душа цветёт так же красиво, как весенние сады.' },
-  { type:'весеннее', text:'Желаю тебе весны, которая запомнится только хорошим.' },
-  { type:'весеннее', text:'Пусть твоё настроение расцветает вместе с весной.' },
-  { type:'весеннее', text:'Желаю тебе быть как весенний ветер — лёгкой, свободной и живой.' },
-  { type:'весеннее', text:'Пусть эта весна станет для тебя временем хороших перемен.' },
-  { type:'весеннее', text:'Желаю тебе вдохновения даже в понедельник утром — первый признак весны.' },
-  { type:'весеннее', text:'Пусть эта весна напомнит тебе, насколько ты прекрасна.' },
-  { type:'весеннее', text:'Желаю тебе столько радости, сколько звёзд над ночной степью весной.' },
-  { type:'весеннее', text:'Пусть твоя красота никогда не меркнет — как цветущий март.' },
-  { type:'весеннее', text:'Желаю тебе весны, полной вдохновения, уважения и счастья.' },
-  { type:'весеннее', text:'Пусть твой день будет красивым, как открытка, но настоящим, как искренние слова.' },
+  // көктемгі
+  { type:'көктемгі', text:'Көктем тек сыртта емес, жүрегіңде де орнасын.' },
+  { type:'көктемгі', text:'Көктем секілді әсем, тірі, қуатқа толы бол.' },
+  { type:'көктемгі', text:'Осы көктем саған жарқын кездесулер мен тәтті тосынсыйлар әкелсін.' },
+  { type:'көктемгі', text:'Саған мягкой весны и сильного характера тілеймін.' },
+  { type:'көктемгі', text:'Жаның көктем бақтарындай құлпырып тұрсын.' },
+  { type:'көктемгі', text:'Осы көктем есіңде тек жақсы сәттерімен қалсын.' },
+  { type:'көктемгі', text:'Көңіл күйің көктеммен бірге құлпырып тұрсын.' },
+  { type:'көктемгі', text:'Көктемгі самалдай еркін, жеңіл, тірі бол.' },
+  { type:'көктемгі', text:'Осы көктем жақсы өзгерістердің бастауы болсын.' },
+  { type:'көктемгі', text:'Тіпті дүйсенбі таңында да шабыт таба біл — бұл да көктемнің белгісі.' },
+  { type:'көктемгі', text:'Осы көктем саған өзіңнің қаншалық әдемі жан екеніңді еске салсын.' },
+  { type:'көктемгі', text:'Саған түнгі даладағы жұлдыздай көп қуаныш тілеймін.' },
+  { type:'көктемгі', text:'Сұлулығың ешқашан өшпесін — көктемнің гүліндей.' },
+  { type:'көктемгі', text:'Осы көктем саған шабыт, құрмет және бақыт сыйласын.' },
+  { type:'көктемгі', text:'Күнің ашықхаттай әдемі, бірақ шынайы сөздердей нақты болсын.' },
 ];
 
-/* ──────────────────────────────────────
-   FLOWER SHAPES (SVG paths)
-   ────────────────────────────────────── */
 const flowerShapes = [
-  // tulip style
   (c,s) => `<svg width="${s}" height="${s}" viewBox="0 0 60 80" fill="none">
     <line x1="30" y1="80" x2="30" y2="38" stroke="#5a8a52" stroke-width="2.5" stroke-linecap="round"/>
     <path d="M30 38 Q20 28 22 16 Q28 6 30 4 Q32 6 38 16 Q40 28 30 38Z" fill="${c}"/>
@@ -404,7 +386,6 @@ const flowerShapes = [
     <ellipse cx="23" cy="26" rx="3" ry="5" fill="white" opacity=".2" transform="rotate(-20 23 26)"/>
   </svg>`,
 
-  // round bloom
   (c,s) => `<svg width="${s}" height="${s}" viewBox="0 0 60 80" fill="none">
     <line x1="30" y1="80" x2="30" y2="42" stroke="#5a8a52" stroke-width="2.5" stroke-linecap="round"/>
     <circle cx="30" cy="30" r="18" fill="${c}"/>
@@ -413,7 +394,6 @@ const flowerShapes = [
     <circle cx="28" cy="28" r="2" fill="white" opacity=".4"/>
   </svg>`,
 
-  // daisy
   (c,s) => `<svg width="${s}" height="${s}" viewBox="0 0 60 80" fill="none">
     <line x1="30" y1="80" x2="30" y2="42" stroke="#5a8a52" stroke-width="2.5" stroke-linecap="round"/>
     ${[0,45,90,135,180,225,270,315].map(a=>`<ellipse cx="${30+14*Math.cos(a*Math.PI/180)}" cy="${30+14*Math.sin(a*Math.PI/180)}" rx="8" ry="4" fill="${c}" transform="rotate(${a} ${30+14*Math.cos(a*Math.PI/180)} ${30+14*Math.sin(a*Math.PI/180)})" opacity=".9"/>`).join('')}
@@ -421,7 +401,6 @@ const flowerShapes = [
     <circle cx="27" cy="27" r="3" fill="white" opacity=".35"/>
   </svg>`,
 
-  // peony-ish
   (c,s) => `<svg width="${s}" height="${s}" viewBox="0 0 60 80" fill="none">
     <line x1="30" y1="80" x2="30" y2="46" stroke="#5a8a52" stroke-width="2.5" stroke-linecap="round"/>
     <circle cx="30" cy="30" r="20" fill="${c}" opacity=".6"/>
@@ -432,9 +411,6 @@ const flowerShapes = [
   </svg>`,
 ];
 
-/* ──────────────────────────────────────
-   POSITIONS for flowers in garden
-   ────────────────────────────────────── */
 const positions = [
   { left:'42%', bottom:'0%',  size:72 },
   { left:'20%', bottom:'5%',  size:60 },
@@ -448,22 +424,15 @@ const positions = [
   { left:'48%', bottom:'20%', size:54 },
 ];
 
-/* ──────────────────────────────────────
-   FLOWER COLORS per wish type
-   ────────────────────────────────────── */
 const typeColors = {
-  нежное:       ['#f5c5cb','#f09ca8','#e8c4da','#f7d5e5'],
-  умное:        ['#cdb4db','#b89fd4','#9a6bbf','#d5c4e8'],
-  историческое: ['#d4a76a','#e8c49a','#c4904a','#dbb87a'],
-  весеннее:     ['#b5c9b0','#8ab884','#c9dbc5','#6aaa60'],
+  нәзік:      ['#f5c5cb','#f09ca8','#e8c4da','#f7d5e5'],
+  ақылды:     ['#cdb4db','#b89fd4','#9a6bbf','#d5c4e8'],
+  тарихи:     ['#d4a76a','#e8c49a','#c4904a','#dbb87a'],
+  көктемгі:   ['#b5c9b0','#8ab884','#c9dbc5','#6aaa60'],
 };
 
-/* ──────────────────────────────────────
-   STATE
-   ────────────────────────────────────── */
 const TOTAL = 8;
 let count = 0;
-let usedWishes = new Set();
 let shuffledWishes = [];
 
 function shuffleArray(a) {
@@ -475,9 +444,6 @@ function shuffleArray(a) {
   return b;
 }
 
-/* ──────────────────────────────────────
-   BACKGROUND PETALS
-   ────────────────────────────────────── */
 function initBgPetals() {
   const wrap = document.getElementById('bgPetals');
   const colors = ['#f5c5cb','#cdb4db','#b5c9b0','#f7d5b5','#e8d5f5'];
@@ -496,9 +462,6 @@ function initBgPetals() {
   }
 }
 
-/* ──────────────────────────────────────
-   NAVIGATION
-   ────────────────────────────────────── */
 function goScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -506,7 +469,6 @@ function goScreen(id) {
 
 function startBouquet() {
   count = 0;
-  usedWishes.clear();
   shuffledWishes = shuffleArray(wishes);
   document.getElementById('garden').innerHTML = '';
   document.getElementById('progressFill').style.width = '0%';
@@ -514,26 +476,22 @@ function startBouquet() {
   document.getElementById('wishTag').style.display = 'none';
   document.getElementById('wishText').classList.remove('show');
   document.getElementById('wishText').textContent = '';
-  document.getElementById('btnNext').textContent = '+ Добавить первый цветок';
+  document.getElementById('btnNext').textContent = '+ Бірінші гүлді қос';
   document.getElementById('btnNext').className = 'btn btn-next';
+  document.getElementById('btnNext').onclick = addFlower;
   goScreen('s2');
 }
 
 function goSurprise() {
   launchConfetti();
   goScreen('s3');
-  setTimeout(() => {}, 100);
 }
 
 function restart() { goScreen('s1'); }
 
-/* ──────────────────────────────────────
-   ADD FLOWER
-   ────────────────────────────────────── */
 function getNextWish() {
   if (shuffledWishes.length === 0) shuffledWishes = shuffleArray(wishes);
-  const w = shuffledWishes.pop();
-  return w;
+  return shuffledWishes.pop();
 }
 
 function addFlower() {
@@ -546,7 +504,6 @@ function addFlower() {
   const shapeIdx = count % flowerShapes.length;
   const svgFn = flowerShapes[shapeIdx];
 
-  // Create flower element
   const garden = document.getElementById('garden');
   const div = document.createElement('div');
   div.className = 'flower';
@@ -555,12 +512,10 @@ function addFlower() {
     width:${pos.size}px; height:${pos.size * 1.35}px;
   `;
   div.innerHTML = svgFn(color, pos.size);
-  div.setAttribute('data-idx', count);
-  div.onclick = () => showWishForFlower(div._wish);
   div._wish = wish;
+  div.onclick = () => showWishInCard(div._wish);
   garden.appendChild(div);
 
-  // Show wish in card
   showWishInCard(wish);
 
   count++;
@@ -568,12 +523,13 @@ function addFlower() {
 
   if (count >= TOTAL) {
     setTimeout(() => {
-      document.getElementById('btnNext').textContent = 'Посмотреть букет целиком 🌸';
-      document.getElementById('btnNext').className = 'btn btn-next btn-finish';
-      document.getElementById('btnNext').onclick = goSurprise;
+      const btn = document.getElementById('btnNext');
+      btn.textContent = 'Гүл шоғын толық көру 🌸';
+      btn.className = 'btn btn-next btn-finish';
+      btn.onclick = goSurprise;
     }, 400);
   } else {
-    document.getElementById('btnNext').textContent = `+ Ещё один цветок (${count}/${TOTAL})`;
+    document.getElementById('btnNext').textContent = `+ Тағы бір гүл (${count}/${TOTAL})`;
   }
 }
 
@@ -595,17 +551,9 @@ function showWishInCard(wish) {
     text.classList.add('show');
   }, 80);
 
-  // Accent border color
   document.getElementById('wishCard').style.borderLeftColor = typeInfo.accent;
 }
 
-function showWishForFlower(wish) {
-  showWishInCard(wish);
-}
-
-/* ──────────────────────────────────────
-   CONFETTI
-   ────────────────────────────────────── */
 function launchConfetti() {
   const colors = ['#f5c5cb','#cdb4db','#b5c9b0','#f7d5b5','#e8919a','#d4a76a'];
   for (let i=0; i<60; i++) {
@@ -625,9 +573,6 @@ function launchConfetti() {
   }
 }
 
-/* ──────────────────────────────────────
-   INIT
-   ────────────────────────────────────── */
 initBgPetals();
 </script>
 </body>
